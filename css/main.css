@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box ;
+}
+
+html{
+    font-size: 62.5%;
+}
+.title{
+    margin-top: 50px;
+    font-weight: bolder;
+    font-size: 40px;
+    margin-left: -10px;
+    color: Black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.types .selection{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    font-size: 20px;
+    font-weight: bolder;
+}
+.selection{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    font-size: 20px;
+    font-weight: bolder;
+    
+
+}
+.display .setup{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    font-size: 20px;
+
+}
+.display.active .setup{
+   display: flex;
+}
+.types.active .selection{
+    display: flex;
+}
+.types .graph{
+    font-size: 15px;
+}
+button{
+    padding: 10px 15px;
+}
+
+/*
+*/
+.btn-primary{
+    bottom : 2rem !important;
+    font-weight: 600 !important;
+    font-size: 14px;
+    color: whitesmoke !important;
+    padding: 0px 40px;
+    text-align: center;
+    background-color: black !important;
+    margin: 5px 5px;
+    width: 180px; /* Set the desired width */
+    height: 50px
+  }
+  
+  .btn-primary:hover{
+    background-color: green !important;
+    border: 3px solid black!important;
+    color: white !important;
+    
+  }
+  .modal-title{
+    text-align: center;
+    font-weight: bolder;
+    font-size: 20px;
+    color: Black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  }
+  @keyframes modalopen {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .close {
+    color:  #000;
+    float: right;
+    font-size: 30px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
