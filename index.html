@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/graph.css">
+    <script src="js/p5.js"></script>
+    <title>Line Coding</title>
+</head>
+<body>
+    <h1 class="title" style="text-align: 
+    center; font-style:normal;">Line Coding </h1>
+<div class="display">
+    <div class="setup" id="setup">
+      <button class="btn btn-primary">SET INPUT</button>
+    </div>
+
+</div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Types of Line Coding</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="selection" id="select">
+          <button  class="btn btn-primary"id="button1" type="submit" value="Submit">NRZ-L</button>
+          <button  class="btn btn-primary" id="button2" type="submit" value="Submit">NRZ-M</button>
+          <button class="btn btn-primary" id="button3" type="submit" value="Submit">NRZ-S</button>
+          <button class="btn btn-primary " id="button4" type="submit" value="Submit">UNIPOLAR-RZ</button>
+          <button class="btn btn-primary" id="button5" type="submit" value="Submit">AMI-RZ</button>
+          <button  class="btn btn-primary"id="button6" type="submit" value="Submit">BIPHASE-L</button>
+          <button class="btn btn-primary" id="button7" type="submit" value="Submit">BIPOLAR-RZ</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="types">
+  <!-- <div class="selection" id="select">
+    <button  id="button1" type="submit" value="Submit">Nrz-l</button><hr>
+    <button  id="button2" type="submit" value="Submit">Nrz-m</button>
+    <button  id="button3" type="submit" value="Submit">Nrz-s</button>
+    <button  id="button4" type="submit" value="Submit">UnipolarRZ</button>
+    <button  id="button5" type="submit" value="Submit">amirz</button>
+    <button  id="button6" type="submit" value="Submit">bipolar-l</button>
+    <button  id="button7" type="submit" value="Submit">biphase-rz</button>
+</div> -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Enter data Bits</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form>
+        <div class="input-field col s5">
+          <input type="number" id="data_bit" type="text"class="validate">
+          <label for="data_bit">Enter Data Bits</label>
+        </div>
+        <button type="submit" id="buttons"class="btn btn-secondary graph" data-dismiss="modal">select graph</button>
+       </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+<!-- //Nrz-l -->
+  <div class="modal fade model-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">NRZ-L</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="display: block">
+            <div class="canvas-shower" id="canvas-container">
+              <canvas id="canvas"></canvas>
+            </div>
+            <div id="container-split">
+              <div class="container-variables">
+                <div class="variables">
+                  <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                    <!-- <div class="input-field col s5">
+                      <input id="data_bit" type="text" class="validate">
+                      <label for="data_bit">Enter Data Bit</label>
+                    </div> -->
+                    <label for="fname" class="varname">Amplitude(V):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="20" max="300" step="10" value="20" class="slider" id="amplitude">
+                    </div>
+                    <label for="fname" class="varname">Frequency(hz):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency">
+                    </div>
+
+                </div>
+              </div>
+              <div class="container-result">
+                <h2 class="subtitle"><u><b>Result</b></u></h3>
+                  <h5 class="subtitle">Data Bits: <span id="dm"></span></h5>
+                  <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am"></span></h5>
+                  <h5 class="subtitle">Wave Frequency(hz): <span id="Fm"></span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- NRZ_S -->
+  <div class="modal fade model-lg" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">NRZ-S</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="display: block">
+            <div class="canvas-shower" id="canvas-container">
+              <canvas id="canvas3"></canvas>
+            </div>
+            <div id="container-split">
+              <div class="container-variables">
+                <div class="variables">
+                  <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                    <label for="fname" class="varname">Amplitude(V):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="20" max="300" step="10" value="20" class="slider" id="amplitude1">
+                    </div>
+                    <label for="fname" class="varname">Frequency(hz):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency1">
+                    </div>
+
+                </div>
+              </div>
+              <div class="container-result">
+                <h2 class="subtitle"><u><b>Result</b></u></h3>
+                  <h5 class="subtitle">Data Bits: <span id="dm1"></span></h5>
+                  <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am1"></span></h5>
+                  <h5 class="subtitle">Wave Frequency(hz): <span id="Fm1"></span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+ 
+  <!-- NRZ-M -->
+  <div class="modal fade model-lg" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">NRZ-M</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div style="display: block">
+            <div class="canvas-shower" id="canvas-container">
+              <canvas id="canvas2"></canvas>
+            </div>
+            <div id="container-split">
+              <div class="container-variables">
+                <div class="variables">
+                  <h2 class="subtitle"><u><b>Variables</b></u></h1>
+      
+                    <label for="fname" class="varname">Amplitude(V):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="20" max="200" step="10" value="20" class="slider" id="amplitude2">
+                    </div>
+                    <label for="fname" class="varname">Frequency(hz):</label><br>
+                    <div class="slidecontainer">
+                      <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency2">
+                    </div>
+
+                </div>
+              </div>
+              <div class="container-result">
+                <h2 class="subtitle"><u><b>Result</b></u></h3>
+                  <h5 class="subtitle">Data Bits: <span id="dm2"></span></h5>
+                  <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am2"></span></h5>
+                  <h5 class="subtitle">Wave Frequency(hz): <span id="Fm2"></span></h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  <!-- UnipolarRZ -->
+  <div class="modal fade model-lg" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">UNIPOLAR-RZ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="display: block">
+          <div class="canvas-shower" id="canvas-container">
+            <canvas id="canvas4"></canvas>
+          </div>
+          <div id="container-split">
+            <div class="container-variables">
+              <div class="variables">
+                <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                  <label for="fname" class="varname">Amplitude(V):</label><br>
+                  <div class="slidecontainer">
+                    <input type="range" min="20" max="500" step="10" value="20" class="slider" id="amplitude4">
+                  </div>
+                  <label for="fname" class="varname">Frequency(hz):</label><br>
+                  <div class="slidecontainer">
+                    <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency4">
+                  </div>
+
+              </div>
+            </div>
+            <div class="container-result">
+              <h2 class="subtitle"><u><b>Result</b></u></h3>
+                <h5 class="subtitle">Data Bits: <span id="dm4"></span></h5>
+                <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am4"></span></h5>
+                <h5 class="subtitle">Wave Frequency(hz): <span id="Fm4"></span></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+<!-- amirz -->
+<div class="modal fade model-lg" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">AMI-RZ</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="display: block">
+        <div class="canvas-shower" id="canvas-container">
+          <canvas id="canvas5"></canvas>
+        </div>
+        <div id="container-split">
+          <div class="container-variables">
+            <div class="variables">
+              <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                <label for="fname" class="varname">Amplitude(V):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="20" max="300" step="10" value="20" class="slider" id="amplitude5">
+                </div>
+                <label for="fname" class="varname">Frequency(hz):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency5">
+                </div>
+
+            </div>
+          </div>
+          <div class="container-result">
+            <h2 class="subtitle"><u><b>Result</b></u></h3>
+              <h5 class="subtitle">Data Bits: <span id="dm5"></span></h5>
+              <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am5"></span></h5>
+              <h5 class="subtitle">Wave Frequency(hz): <span id="Fm5"></span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Biphase-l -->
+<div class="modal fade model-lg" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">BIPHASE-L</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="display: block">
+        <div class="canvas-shower" id="canvas-container">
+          <canvas id="canvas6"></canvas>
+        </div>
+        <div id="container-split">
+          <div class="container-variables">
+            <div class="variables">
+              <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                <label for="fname" class="varname">Amplitude(V):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="20" max="300" step="10" value="20" class="slider" id="amplitude6">
+                </div>
+                <label for="fname" class="varname">Frequency(hz):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency6">
+                </div>
+
+            </div>
+          </div>
+          <div class="container-result">
+            <h2 class="subtitle"><u><b>Result</b></u></h3>
+              <h5 class="subtitle">Data Bits: <span id="dm6"></span></h5>
+              <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am6"></span></h5>
+              <h5 class="subtitle">Wave Frequency(hz): <span id="Fm6"></span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- bipolarrz -->
+<div class="modal fade model-lg" id="exampleModal6" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">BIPOLAR-RZ</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="display: block">
+        <div class="canvas-shower" id="canvas-container">
+          <canvas id="canvas7"></canvas>
+        </div>
+        <div id="container-split">
+          <div class="container-variables">
+            <div class="variables">
+              <h2 class="subtitle"><u><b>Variables</b></u></h1>
+                <label for="fname" class="varname">Amplitude(V):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="20" max="300" step="10" value="20" class="slider" id="amplitude7">
+                </div>
+                <label for="fname" class="varname">Frequency(hz):</label><br>
+                <div class="slidecontainer">
+                  <input type="range" min="80" max="600" step="80" value="80" class="slider" id="frequency7">
+                </div>
+
+            </div>
+          </div>
+          <div class="container-result">
+            <h2 class="subtitle"><u><b>Result</b></u></h3>
+              <h5 class="subtitle">Data Bits: <span id="dm7"></span></h5>
+              <h5 class="subtitle"><b>Wave Amplitude(V): </b><span id="Am7"></span></h5>
+              <h5 class="subtitle">Wave Frequency(hz): <span id="Fm7"></span></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+  
+
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/nrz-l.js"></script>
+    <script type="module" src="js/nrz-m.js"></script>
+    <script type="module" src="js/nrz-s.js"></script>
+    <script type="module" src="js/unipolarrz.js"></script>
+    <script type="module" src="js/amirz.js"></script>
+    <script type="module" src="js/biphasel.js"></script>
+    <script type="module" src="js/bipolarrz.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
